@@ -12,5 +12,4 @@ public class ApiChatbotApplication {
         System.out.println("ta rodando");
     }
 
-
 }
