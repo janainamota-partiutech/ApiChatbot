@@ -19,7 +19,7 @@ public class WhatsappController {
 
     @PostMapping
     @ResponseBody
-    public WhatsappDTO criar(@RequestBody WhatsappDTO whatsappDTO) {
+    public WhatsappDTO criar(@RequestBody WhatsappDTO whatsappDTO) throws Exception {
         return whatsappService.criar(whatsappDTO);
     }
 
