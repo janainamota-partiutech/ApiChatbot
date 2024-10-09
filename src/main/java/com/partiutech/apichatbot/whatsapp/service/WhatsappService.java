@@ -19,7 +19,7 @@ import java.util.Map;
 public class WhatsappService {
     private static final Map<Long, WhatsappDTO> whatsapp = new HashMap<>();
 
-    public WhatsappDTO criar(WhatsappDTO whatsappDTO) throws Exception {
+    public static WhatsappDTO criar(WhatsappDTO whatsappDTO) throws Exception {
         try {
             String conteudo = "{\"messaging_product\":\"whatsapp\",\"to\":\"21964942829\",\"type\":\"template\",\"template\":{\"name\":\"hello_world\",\"language\":{\"code\":\"en_US\"}}}";
             HttpResponse httpResponse = WhatsappUtil.postarRequisicao(conteudo);

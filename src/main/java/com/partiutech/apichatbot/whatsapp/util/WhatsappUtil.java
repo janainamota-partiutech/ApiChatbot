@@ -7,12 +7,12 @@ import lombok.experimental.UtilityClass;
 import java.io.IOException;
 
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
-import static sun.security.util.KnownOIDs.ContentType;
+
 
 @UtilityClass
 public class WhatsappUtil {
 
-    public HttpResponse postarRequisicao(String conteudo) throws IOException {
+    public static HttpResponse postarRequisicao(String conteudo) throws IOException {
 
         HttpRequestFactory httpRequestFactory = new NetHttpTransport().createRequestFactory();
         final String urlAPI = "https://graph.facebook.com/v20.0/463384050181203/messages";
