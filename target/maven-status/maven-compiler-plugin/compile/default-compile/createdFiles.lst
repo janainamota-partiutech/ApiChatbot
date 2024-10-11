@@ -1,0 +1,5 @@
+com\partiutech\apichatbot\ApiChatbotApplication.class
+com\partiutech\apichatbot\whatsapp\dto\WhatsappDTO.class
+com\partiutech\apichatbot\whatsapp\controller\WhatsappController.class
+com\partiutech\apichatbot\whatsapp\service\WhatsappService.class
+com\partiutech\apichatbot\whatsapp\util\WhatsappUtil.class
