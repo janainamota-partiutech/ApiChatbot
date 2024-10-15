@@ -3,16 +3,14 @@ package com.partiutech.apichatbot.whatsapp.dto;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Data
 @Entity
-@Table(name = "pessoa")
+@Table(name = "item")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PessoaDTO {
+public class ItemDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,10 +18,9 @@ public class PessoaDTO {
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
 
-    @Column(name = "cpf", length = 11, nullable = false)
-    private String cpf;
+    @Column(name = "descricao", length = 100)
+    private String descricao;
 
-    @Column(name = "data_nascimento")
-    private LocalDate dataNascimento;
-
+    @Column(name = "valor", nullable = false)
+    private Double valor;
 }
