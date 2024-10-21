@@ -20,6 +20,7 @@ public class PessoaDTO {
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
 
+    @Getter
     @Column(name = "cpf", length = 11, nullable = false)
     private String cpf;
 
