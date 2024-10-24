@@ -1,40 +1,48 @@
 package com.partiutech.apichatbot.whatsapp.service;
 
 import com.partiutech.apichatbot.whatsapp.dto.PessoaDTO;
+import com.partiutech.apichatbot.whatsapp.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
 
-    private static final Map<String, PessoaDTO> pessoas = new HashMap<>();
-
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public PessoaDTO criar(PessoaDTO pessoaDTO) {
-        pessoas.put(pessoaDTO.getCpf(), pessoaDTO);
-        return pessoaDTO;
+        return pessoaRepository.save(pessoaDTO);
     }
 
+
     public PessoaDTO atualizar(PessoaDTO pessoaDTO) {
-        if (pessoas.containsKey(pessoaDTO.getCpf())) {
-            PessoaDTO pessoaExistente = pessoas.get(pessoaDTO.getCpf());
-            pessoaExistente.setNome(pessoaDTO.getNome());
-            pessoaExistente.setDataNascimento(pessoaDTO.getDataNascimento());
-            return pessoaExistente;
+        Optional<PessoaDTO> pessoaExistente = pessoaRepository.findByCpf(pessoaDTO.getCpf());
+
+        if (pessoaExistente.isPresent()) {
+            PessoaDTO pessoa = pessoaExistente.get();
+            pessoa.setNome(pessoaDTO.getNome());
+            pessoa.setDataNascimento(pessoaDTO.getDataNascimento());
+            return pessoaRepository.save(pessoa);
         }
-        throw new RuntimeException("Pessoa com CPF " + pessoaDTO.getCpf() + " não encontrada."); // lançando excessão caso n seja encontrado
+
+        throw new RuntimeException("Pessoa com CPF " + pessoaDTO.getCpf() + " não encontrada.");
     }
 
 
     public List<PessoaDTO> getAll() {
-        return new ArrayList<>(pessoas.values());
+        return pessoaRepository.findAll();
     }
 
 
     public void delete(String cpf) {
-        if (pessoas.containsKey(cpf)) {
-            pessoas.remove(cpf);
+        Optional<PessoaDTO> pessoaExistente = pessoaRepository.findByCpf(cpf);
+
+        if (pessoaExistente.isPresent()) {
+            pessoaRepository.delete(pessoaExistente.get());
         } else {
             throw new RuntimeException("Pessoa com CPF " + cpf + " não encontrada.");
         }

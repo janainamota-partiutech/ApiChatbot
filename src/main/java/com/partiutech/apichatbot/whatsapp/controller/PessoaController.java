@@ -34,6 +34,7 @@ public class PessoaController {
     }
 
     @DeleteMapping("/{cpf}")
+    @ResponseBody
     public void delete(@PathVariable String cpf) {
         pessoaService.delete(cpf);
     }

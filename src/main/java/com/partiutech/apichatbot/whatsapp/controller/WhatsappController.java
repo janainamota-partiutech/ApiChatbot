@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.Media;
 import java.util.List;
 
 @Controller
@@ -16,6 +15,12 @@ import java.util.List;
 public class WhatsappController {
     @Autowired
     private WhatsappService whatsappService;
+
+    @PostMapping("/teste")
+    @ResponseBody
+    public String testeWebhook() {
+        return "TESTE REALIZADO COM SUCESSO!";
+    }
 
     @PostMapping
     @ResponseBody
@@ -40,6 +45,4 @@ public class WhatsappController {
     public String delete(@PathVariable("whatsappId") Long whatsappId) {
         return whatsappService.delete(whatsappId);
     }
-
-
 }
