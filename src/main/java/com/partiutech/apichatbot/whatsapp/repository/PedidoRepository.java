@@ -9,7 +9,4 @@ import java.util.List;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<PedidoDTO, Long> {
-
-    //buscar pedidos por clientes
-    List<PedidoDTO> findByPessoa(PessoaDTO pessoa);
 }

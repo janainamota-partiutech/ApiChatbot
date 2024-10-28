@@ -45,7 +45,7 @@ public class PedidoService {
 
     public PedidoDTO getById(Long id) {
         return pedidoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pedido com ID " + id + " não encontrado.")); //metodo para retorno do valor null, cria a excessão
+                .orElseThrow(() -> new RuntimeException("Pedido " + id + " não encontrado.")); //metodo para retorno do valor null, cria a excessão
     }
 
 
@@ -53,7 +53,7 @@ public class PedidoService {
         if (pedidoRepository.existsById(id)) {
             pedidoRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Pedido com ID " + id + " não encontrado.");
+            throw new RuntimeException("Pedido " + id + " não encontrado.");
         }
     }
 }

@@ -15,7 +15,7 @@ public class EnderecoDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne // muitos para um
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private PessoaDTO pessoa;
 
