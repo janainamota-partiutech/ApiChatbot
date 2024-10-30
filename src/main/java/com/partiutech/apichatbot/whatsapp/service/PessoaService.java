@@ -15,6 +15,16 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     public PessoaDTO criar(PessoaDTO pessoaDTO) {
+
+        if (pessoaDTO.getTelefones() != null) { // verificando se n eh null
+            pessoaDTO.getTelefones().forEach(telefone -> telefone.setPessoa(pessoaDTO));
+        }
+
+        if (pessoaDTO.getEnderecos() != null) {
+            pessoaDTO.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoaDTO));
+        }
+
+
         return pessoaRepository.save(pessoaDTO);
     }
 
@@ -26,6 +36,22 @@ public class PessoaService {
             PessoaDTO pessoa = pessoaExistente.get();
             pessoa.setNome(pessoaDTO.getNome());
             pessoa.setDataNascimento(pessoaDTO.getDataNascimento());
+
+            // Atualiza os telefones pessoa
+            if (pessoaDTO.getTelefones() != null) {
+                // Remove os telefones antigos e associa os novos
+                pessoa.getTelefones().clear();
+                pessoaDTO.getTelefones().forEach(telefone -> telefone.setPessoa(pessoa));
+                pessoa.getTelefones().addAll(pessoaDTO.getTelefones());
+            }
+
+            // Atualiza os endereços pessoa
+            if (pessoaDTO.getEnderecos() != null) {
+                // Remove os endereços antigos e associa os novos
+                pessoa.getEnderecos().clear();
+                pessoaDTO.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
+                pessoa.getEnderecos().addAll(pessoaDTO.getEnderecos());
+            }
             return pessoaRepository.save(pessoa);
         }
 

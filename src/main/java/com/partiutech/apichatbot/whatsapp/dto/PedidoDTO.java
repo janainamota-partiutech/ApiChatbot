@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -39,4 +40,6 @@ public class PedidoDTO {
     @Column(name = "data_entrega")
     private LocalDate dataEntrega;
 
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemPedidoDTO> itensPedido;
 }

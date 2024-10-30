@@ -33,12 +33,6 @@ public class PedidoController {
         return pedidoService.getAll();
     }
 
-    @GetMapping
-    @ResponseBody
-    public PedidoDTO getById(@PathVariable Long id){ //busca pedido especifico pelo id
-        return pedidoService.getById(id);
-    }
-
     @DeleteMapping
     @ResponseBody
     public void delete(@PathVariable Long id){
