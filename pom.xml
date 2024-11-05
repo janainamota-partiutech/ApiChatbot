@@ -70,7 +70,17 @@
             <artifactId>google-http-client-appengine</artifactId>
             <version>1.32.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
+
+
 
     <build>
         <plugins>
