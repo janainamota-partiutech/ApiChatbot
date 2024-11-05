@@ -3,13 +3,14 @@ package com.partiutech.apichatbot.whatsapp.controller;
 import com.partiutech.apichatbot.whatsapp.dto.ItemDTO;
 import com.partiutech.apichatbot.whatsapp.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/item")
 public class ItemController {
 
     @Autowired
@@ -33,9 +34,9 @@ public class ItemController {
         return itemService.getAll();
     }
 
-    @DeleteMapping
-    @ResponseBody
-    public void delete(@PathVariable Long id) {
-        itemService.delete(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return ResponseEntity.noContent().build();
     }
 }
+

@@ -4,14 +4,13 @@ package com.partiutech.apichatbot.whatsapp.controller;
 import com.partiutech.apichatbot.whatsapp.dto.FormaPagamentoDTO;
 import com.partiutech.apichatbot.whatsapp.service.FormaPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/forma-pagamento")
 public class FormaPagamentoController {
 
     @Autowired
@@ -23,7 +22,7 @@ public class FormaPagamentoController {
         return formaPagamentoService.criar(formaPagamentoDTO);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
     public FormaPagamentoDTO atualizar(@RequestBody Long id, @RequestBody FormaPagamentoDTO formaPagamentoDTO) {
         return formaPagamentoService.atualizar(id, formaPagamentoDTO);
@@ -41,7 +40,7 @@ public class FormaPagamentoController {
         return formaPagamentoService.getById(id);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseBody
     public void delete(@PathVariable Long id) {
         formaPagamentoService.delete(id);
