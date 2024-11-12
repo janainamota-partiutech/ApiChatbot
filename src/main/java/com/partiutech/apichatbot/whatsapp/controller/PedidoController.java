@@ -4,7 +4,6 @@ import com.partiutech.apichatbot.whatsapp.dto.PedidoDTO;
 
 import com.partiutech.apichatbot.whatsapp.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +34,8 @@ public class PedidoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return ResponseEntity.noContent().build();
+    @ResponseBody
+    public void delete(@PathVariable Long id) {
+        pedidoService.delete(id);
     }
 }

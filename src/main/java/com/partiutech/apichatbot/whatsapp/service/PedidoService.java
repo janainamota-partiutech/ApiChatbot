@@ -1,9 +1,10 @@
 package com.partiutech.apichatbot.whatsapp.service;
 
-import com.partiutech.apichatbot.whatsapp.dto.FormaPagamentoDTO;
-import com.partiutech.apichatbot.whatsapp.dto.PedidoDTO;
+import com.partiutech.apichatbot.whatsapp.dto.*;
 import com.partiutech.apichatbot.whatsapp.repository.FormaPagamentoRepository;
+import com.partiutech.apichatbot.whatsapp.repository.ItemRepository;
 import com.partiutech.apichatbot.whatsapp.repository.PedidoRepository;
+import com.partiutech.apichatbot.whatsapp.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,22 @@ public class PedidoService {
     @Autowired
     private FormaPagamentoRepository formaPagamentoRepository;
 
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
 
     public PedidoDTO criar(PedidoDTO pedidoDTO) {
-        // Validar forma de pagamento
+        // Validar e buscar a pessoa associada
+        if (pedidoDTO.getPessoa() != null) {
+            PessoaDTO pessoa = pessoaRepository.findById(pedidoDTO.getPessoa().getId())
+                    .orElseThrow(() -> new RuntimeException("Pessoa não encontrada."));
+            pedidoDTO.setPessoa(pessoa);
+        }
+
+        // Validar e buscar a forma de pagamento associada
         if (pedidoDTO.getFormaPagamento() != null) {
             FormaPagamentoDTO formaPagamento = formaPagamentoRepository
                     .findById(pedidoDTO.getFormaPagamento().getId())
@@ -29,10 +42,16 @@ public class PedidoService {
             pedidoDTO.setFormaPagamento(formaPagamento);
         }
 
-        // Associar cada item ao pedido antes de salvar
+        // Associar cada item ao pedido e validar se eles existem no banco
         if (pedidoDTO.getItensPedido() != null) {
-            pedidoDTO.getItensPedido().forEach(item -> item.setPedido(pedidoDTO));
+            for (ItemPedidoDTO itemPedido : pedidoDTO.getItensPedido()) {
+                ItemDTO itemExistente = itemRepository.findById(itemPedido.getItem().getId())
+                        .orElseThrow(() -> new RuntimeException("Item não encontrado."));
+                itemPedido.setItem(itemExistente);
+                itemPedido.setPedido(pedidoDTO);
+            }
         }
+
         return pedidoRepository.save(pedidoDTO);
     }
 

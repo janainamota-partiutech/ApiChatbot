@@ -52,6 +52,12 @@ public class PessoaService {
                 pessoaDTO.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
                 pessoa.getEnderecos().addAll(pessoaDTO.getEnderecos());
             }
+
+            // Atualiza a data de nascimento diretamente
+            if (pessoaDTO.getDataNascimento() != null) {
+                pessoa.setDataNascimento(pessoaDTO.getDataNascimento());
+            }
+
             return pessoaRepository.save(pessoa);
         }
 
